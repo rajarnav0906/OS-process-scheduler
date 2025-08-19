@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
-// import Simulation from "./pages/Simulation";
+import Simulation from "./pages/Simulation";
 import Footer from "./components/Footer";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
       <main className="flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
-          {/* <Route path="/simulation" element={<Simulation />} /> */}
+          <Route path="/simulation" element={<Simulation />} />
         </Routes>
       </main>
       <Footer />

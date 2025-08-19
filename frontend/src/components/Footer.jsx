@@ -54,10 +54,10 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link to="/" className="hover:text-blue-400">Home</Link>
+              <Link to="/" className="hover:text-blue-400" onClick={() => window.scrollTo(0, 0)}>Home</Link>
             </li>
             <li>
-              <Link to="/simulation" className="hover:text-blue-400">Start Simulation</Link>
+              <Link to="/simulation" className="hover:text-blue-400" onClick={() => window.scrollTo(0, 0)}>Start Simulation</Link>
             </li>
           </ul>
         </div>

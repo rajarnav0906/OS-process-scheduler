@@ -3,7 +3,8 @@ import { sjfNonPreemptive } from '../utils/algorithms/sjf.js';
 import { sjfPreemptive } from '../utils/algorithms/sjfPreemptive.js';
 import { priorityScheduling } from '../utils/algorithms/priority.js';
 import { priorityPreemptive } from '../utils/algorithms/priorityPreemptive.js';
-import { roundRobinScheduling } from '../utils/algorithms/roundRobin.js';
+import { roundRobinScheduling } from '../utils/algorithms/roundrobin.js';
+
 
 
 

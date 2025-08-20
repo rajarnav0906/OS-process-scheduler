@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Simulation from "./pages/Simulation";
 import Footer from "./components/Footer";
+import DevInProgress from "./pages/DevInProgress";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/simulation" element={<Simulation />} />
+          <Route path="/simulation/:algo" element={<DevInProgress />} />
         </Routes>
       </main>
       <Footer />

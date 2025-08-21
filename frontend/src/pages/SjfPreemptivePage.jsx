@@ -9,7 +9,7 @@ const COLORS = [
   "bg-yellow-500", "bg-orange-500", "bg-teal-500", "bg-red-500"
 ];
 
-export default function FcfsPage() {
+export default function SjfPreemptivePage() {
   const [processes, setProcesses] = useState([{ pid: "P1", arrival: 0, burst: 5 }]);
   const [result, setResult] = useState(null);
   const [animIndex, setAnimIndex] = useState(-1);
@@ -44,7 +44,7 @@ export default function FcfsPage() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/schedule/fcfs`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/schedule/sjf-preemptive`,
         payload
       );
       setResult(res.data);
@@ -56,7 +56,6 @@ export default function FcfsPage() {
 
   useEffect(() => {
     if (!result || !animating) return;
-
     let i = 0;
     const interval = setInterval(() => {
       setAnimIndex(i);
@@ -66,7 +65,6 @@ export default function FcfsPage() {
         setAnimating(false);
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [result, animating]);
 
@@ -74,36 +72,34 @@ export default function FcfsPage() {
     <div className="min-h-screen bg-gradient-to-b from-[#0D1117] to-[#1a1f2b] text-gray-100 px-6 py-10">
       <div className="max-w-5xl mx-auto space-y-10">
         {/* Header */}
-        {/* Header */}
-<div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-  <h1 className="text-2xl font-bold text-blue-400 flex items-center gap-2">
-    <ActivitySquare className="w-6 h-6" /> FCFS Scheduling Visualizer
-  </h1>
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-2xl font-bold text-blue-400 flex items-center gap-2">
+            <ActivitySquare className="w-6 h-6" /> SJF Preemptive (SRTF) Visualizer
+          </h1>
 
-  {/* Actions spaced apart */}
-  <div className="flex w-full sm:w-auto justify-between sm:justify-end items-center gap-3">
-    {/* Run Simulation (left on mobile) */}
-    <button
-      onClick={handleSubmit}
-      className="flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition-all text-sm md:text-base shadow"
-    >
-      <Play className="w-4 h-4" /> Run Simulation
-    </button>
+          {/* Actions spaced apart */}
+          <div className="flex w-full sm:w-auto justify-between sm:justify-end items-center gap-3">
+            {/* Run Simulation */}
+            <button
+              onClick={handleSubmit}
+              className="flex items-center gap-2 px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 transition-all text-sm md:text-base shadow"
+            >
+              <Play className="w-4 h-4" /> Run Simulation
+            </button>
 
-    {/* Home (always right) */}
-    <button
-      onClick={() => navigate("/")}
-      aria-label="Go to Home"
-      title="Home"
-      className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all shadow outline-none focus:ring-2 focus:ring-blue-500"
-    >
-      <Home className="w-5 h-5 text-gray-200" />
-    </button>
-  </div>
-</div>
+            {/* Home Button */}
+            <button
+              onClick={() => navigate("/")}
+              aria-label="Go to Home"
+              title="Home"
+              className="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-all shadow outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <Home className="w-5 h-5 text-gray-200" />
+            </button>
+          </div>
+        </div>
 
-
-        {/* Input Section */}
+        {/* Process Table */}
         <div className="bg-[#1e293b] border border-gray-700 rounded-xl p-6 shadow-xl">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-blue-300">Processes</h2>
@@ -184,6 +180,7 @@ export default function FcfsPage() {
               })}
             </div>
 
+            {/* Metrics */}
             <table className="w-full text-sm mb-4">
               <thead>
                 <tr className="bg-[#111827] text-gray-300">
@@ -206,12 +203,8 @@ export default function FcfsPage() {
             </table>
 
             <div className="mt-2 text-sm text-gray-300 flex flex-wrap gap-6">
-              <span>
-                Avg WT: <span className="text-blue-300">{result.avgWT}</span>
-              </span>
-              <span>
-                Avg TAT: <span className="text-blue-300">{result.avgTAT}</span>
-              </span>
+              <span>Avg WT: <span className="text-blue-300">{result.avgWT}</span></span>
+              <span>Avg TAT: <span className="text-blue-300">{result.avgTAT}</span></span>
             </div>
           </div>
         )}

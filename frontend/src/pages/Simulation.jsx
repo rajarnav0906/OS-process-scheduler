@@ -43,7 +43,25 @@ export default function Simulation() {
 
   const handleChoice = (algo, type) => {
     setOpenModal(null);
-    navigate(`/simulation/${algo}?type=${type}`);
+
+    // ✅ Handle SJF
+    if (algo === "sjf" && type === "non-preemptive") {
+      navigate("/simulation/sjf");
+    } else if (algo === "sjf" && type === "preemptive") {
+      navigate("/simulation/sjf-preemptive");
+    }
+
+    // ✅ Handle Priority
+    else if (algo === "priority" && type === "non-preemptive") {
+      navigate("/simulation/priority");
+    } else if (algo === "priority" && type === "preemptive") {
+      navigate("/simulation/priority-preemptive");
+    }
+
+    // Fallback (for future algos like RR)
+    else {
+      navigate(`/simulation/${algo}?type=${type}`);
+    }
   };
 
   return (

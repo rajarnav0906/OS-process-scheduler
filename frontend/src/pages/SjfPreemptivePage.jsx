@@ -65,7 +65,7 @@ export default function SjfPreemptivePage() {
 
     try {
       const res = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/schedule/sjfpreemptive`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/schedule/sjf-preemptive`,
         payload
       );
       setResult(res.data);

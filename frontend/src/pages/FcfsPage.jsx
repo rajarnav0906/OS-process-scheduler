@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Plus, Play, Trash2, ActivitySquare, Home, Loader2, Cpu } from "lucide-react";
+import { Plus, Play, Trash2, ActivitySquare, Home, Loader2, Clock, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -19,20 +19,11 @@ export default function FcfsPage() {
   const [animating, setAnimating] = useState(false);
   const [loading, setLoading] = useState(false);
   const [time, setTime] = useState(new Date());
-  const [cpuUsage, setCpuUsage] = useState(20);
   const navigate = useNavigate();
 
   // Clock
   useEffect(() => {
     const interval = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Fake CPU usage
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCpuUsage(Math.floor(Math.random() * 40) + 20);
-    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -91,6 +82,12 @@ export default function FcfsPage() {
     }, 1200);
     return () => clearInterval(interval);
   }, [result, animating]);
+
+  // Total execution time (makespan)
+  const totalTime =
+    result && result.ganttChart.length > 0
+      ? result.ganttChart[result.ganttChart.length - 1].end
+      : 0;
 
   return (
     <div
@@ -200,11 +197,18 @@ export default function FcfsPage() {
         </motion.div>
 
         {/* Visualization + Loader */}
-        <div className="bg-[#101827]/90 backdrop-blur border border-gray-700 rounded-xl p-6 shadow-xl min-h-[200px] flex items-center justify-center">
+        <div className="bg-[#101827]/90 backdrop-blur border border-gray-700 rounded-xl p-4 sm:p-6 shadow-xl min-h-[200px] flex items-center justify-center">
           {loading && (
             <div className="flex flex-col items-center gap-3">
               <Loader2 className="w-10 h-10 text-cyan-400 animate-spin" />
               <span className="text-cyan-300 font-medium">Running Simulation...</span>
+            </div>
+          )}
+
+          {!loading && !result && (
+            <div className="flex flex-col items-center gap-3 text-center text-gray-400">
+              <AlertCircle className="w-10 h-10 text-cyan-400" />
+              <span className="font-medium">Run the simulation to see Gantt Chart and Metrics</span>
             </div>
           )}
 
@@ -226,39 +230,43 @@ export default function FcfsPage() {
                       transition={{ duration: 1, ease: "easeOut" }}
                       className={`h-16 sm:h-28 flex flex-col justify-center items-center 
                         text-[10px] sm:text-sm font-medium rounded-md shadow-lg 
-                        bg-gradient-to-br ${colorClass}`}
+                        bg-gradient-to-br ${colorClass} relative`}
                       style={{ minWidth: duration * 50 }}
                     >
                       <span>{g.pid}</span>
-                      <span className="absolute bottom-1 sm:bottom-2 text-[9px] sm:text-xs">
-                        {g.start}–{g.end}
-                      </span>
+                      {/* Start & End numbers */}
+                      <div className="absolute bottom-1 sm:bottom-2 w-full px-1 flex justify-between text-[9px] sm:text-xs">
+                        <span>{g.start}</span>
+                        <span>{g.end}</span>
+                      </div>
                     </motion.div>
                   );
                 })}
               </div>
 
               {/* Metrics Table */}
-              <table className="w-full text-xs sm:text-sm mb-4 min-w-[320px] sm:min-w-[400px]">
-                <thead>
-                  <tr className="bg-[#0a0f1a] text-gray-300 uppercase text-[10px] sm:text-xs">
-                    <th className="p-2 text-center">PID</th>
-                    <th className="p-2 text-center">CT</th>
-                    <th className="p-2 text-center">TAT</th>
-                    <th className="p-2 text-center">WT</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {result.metrics.map((p, i) => (
-                    <tr key={i} className="border-t border-gray-700 text-center">
-                      <td className="p-2">{p.pid}</td>
-                      <td className="p-2">{p.CT}</td>
-                      <td className="p-2">{p.TAT}</td>
-                      <td className="p-2">{p.WT}</td>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs sm:text-sm mb-4 min-w-[360px]">
+                  <thead>
+                    <tr className="bg-[#0a0f1a] text-gray-300 uppercase text-[10px] sm:text-xs">
+                      <th className="p-2 text-center">PID</th>
+                      <th className="p-2 text-center">CT</th>
+                      <th className="p-2 text-center">TAT</th>
+                      <th className="p-2 text-center">WT</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {result.metrics.map((p, i) => (
+                      <tr key={i} className="border-t border-gray-700 text-center">
+                        <td className="p-2">{p.pid}</td>
+                        <td className="p-2">{p.CT}</td>
+                        <td className="p-2">{p.TAT}</td>
+                        <td className="p-2">{p.WT}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
               <div className="mt-2 text-xs sm:text-sm text-gray-300 flex flex-wrap justify-center gap-6">
                 <span>Avg WT: <span className="text-cyan-300">{result.avgWT}</span></span>
@@ -275,8 +283,8 @@ export default function FcfsPage() {
           px-3 sm:px-6 py-2 sm:py-3 flex flex-col sm:flex-row items-center justify-between 
           text-[11px] sm:text-sm text-gray-300 shadow-inner gap-2 sm:gap-0">
           <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-green-400" />
-            <span>CPU Usage: <span className="text-green-300">{cpuUsage}%</span></span>
+            <Clock className="w-4 h-4 text-cyan-400" />
+            <span>Total Execution Time: <span className="text-cyan-300">{totalTime}</span></span>
           </div>
           <span className="text-cyan-300">{time.toLocaleTimeString()}</span>
         </div>

@@ -5,12 +5,11 @@ import BgVector from "../assets/bg-vector.jpg"; // background image
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col text-gray-100">
+    <div className="w-full flex flex-col text-gray-100 font-mono">
       {/* Hero Section */}
       <section
         className="
-          relative
-          flex flex-col md:flex-row
+          relative flex flex-col md:flex-row
           items-center justify-center
           px-6 md:px-16
           min-h-screen
@@ -27,23 +26,26 @@ export default function Home() {
 
         {/* Left Content */}
         <div className="relative z-10 flex-1 text-center md:text-left mb-12 md:mb-0 md:pr-12">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-blue-400 drop-shadow-lg">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-cyan-400 drop-shadow-lg relative font-mono">
             OS Process Scheduler
+            <span className="block mx-auto md:mx-0 mt-3 w-28 h-1 bg-cyan-500 rounded-full"></span>
           </h1>
           <p className="mt-6 text-base md:text-lg text-gray-300 max-w-lg leading-relaxed mx-auto md:mx-0">
             Visualize how operating systems handle{" "}
             <span className="text-white font-medium">process scheduling</span> — 
             explore algorithms like{" "}
-            <span className="text-blue-300">First Come First Serve</span>,{" "}
-            <span className="text-blue-300">Shortest Job First</span>,{" "}
-            <span className="text-blue-300">Priority Scheduling</span>, and{" "}
-            <span className="text-blue-300">Round Robin</span>.
+            <span className="text-cyan-300">First Come First Serve</span>,{" "}
+            <span className="text-cyan-300">Shortest Job First</span>,{" "}
+            <span className="text-cyan-300">Priority Scheduling</span>, and{" "}
+            <span className="text-cyan-300">Round Robin</span>.
           </p>
 
           {/* Navigation button */}
           <Link
             to="/simulation"
-            className="inline-block mt-10 px-8 py-3 rounded-lg bg-blue-500 text-white font-semibold hover:bg-blue-400 transition-all shadow-lg"
+            onClick={() => window.scrollTo(0, 0)}
+            className="inline-block mt-10 px-8 py-3 rounded-lg bg-cyan-600 text-white font-semibold 
+              hover:bg-cyan-500 transition-all shadow-lg hover:shadow-cyan-400/30"
           >
             Start Simulation
           </Link>
@@ -64,18 +66,18 @@ export default function Home() {
       </section>
 
       {/* Why Scheduling Matters Section */}
-            {/* Why Scheduling Matters Section */}
       <section className="bg-[#0D1117] py-20 px-6 md:px-16">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-blue-400 mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-cyan-400 mb-16 relative font-mono">
             Why Scheduling Matters
+            <span className="block mx-auto mt-3 w-24 h-1 bg-cyan-500 rounded-full"></span>
           </h2>
 
           <div className="space-y-12">
             {/* Efficiency */}
             <div className="bg-black/40 border border-gray-700 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                <Cpu className="w-8 h-8 text-blue-400" /> Efficiency of CPU Usage
+              <h3 className="text-2xl font-semibold text-cyan-300 mb-4 flex items-center gap-3 font-mono">
+                <Cpu className="w-8 h-8 text-cyan-400" /> Efficiency of CPU Usage
               </h3>
               <p className="text-gray-300 text-base leading-relaxed mb-3">
                 At the heart of every computer system lies the CPU, the component responsible 
@@ -87,73 +89,60 @@ export default function Home() {
               <p className="text-gray-400 text-sm leading-relaxed">
                 In practice, efficient scheduling minimizes wasted CPU cycles. This means faster 
                 program execution, reduced response times in interactive systems, and better 
-                overall system performance. For example, in data centers and cloud platforms, 
-                CPU utilization directly translates to cost savings and energy efficiency.
+                overall system performance.
               </p>
             </div>
 
             {/* Performance */}
             <div className="bg-black/40 border border-gray-700 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                <Timer className="w-8 h-8 text-blue-400" /> Performance and Responsiveness
+              <h3 className="text-2xl font-semibold text-cyan-300 mb-4 flex items-center gap-3 font-mono">
+                <Timer className="w-8 h-8 text-cyan-400" /> Performance and Responsiveness
               </h3>
               <p className="text-gray-300 text-base leading-relaxed mb-3">
-                Scheduling policies directly influence two critical performance metrics: 
-                <span className="text-blue-300"> Waiting Time</span> (how long a process waits 
-                before execution) and <span className="text-blue-300">Turnaround Time</span> 
-                (total time from arrival to completion). Well-chosen algorithms minimize these 
-                delays, making systems more responsive for users.
+                Scheduling policies directly influence metrics like{" "}
+                <span className="text-cyan-300">Waiting Time</span> and{" "}
+                <span className="text-cyan-300">Turnaround Time</span>. 
+                Well-chosen algorithms minimize these delays, making systems more responsive.
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                For instance, in a desktop operating system, interactive tasks like typing or 
-                browsing should respond instantly, while background tasks like file indexing 
-                can wait. Scheduling ensures a balance between short, interactive jobs and long, 
-                CPU-intensive ones, improving the user experience without compromising throughput.
+                For example, in desktop systems, interactive tasks like typing or browsing 
+                should respond instantly, while background tasks can wait.
               </p>
             </div>
 
             {/* Fairness */}
             <div className="bg-black/40 border border-gray-700 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                <Gauge className="w-8 h-8 text-blue-400" /> Fairness and Avoiding Starvation
+              <h3 className="text-2xl font-semibold text-cyan-300 mb-4 flex items-center gap-3 font-mono">
+                <Gauge className="w-8 h-8 text-cyan-400" /> Fairness and Avoiding Starvation
               </h3>
               <p className="text-gray-300 text-base leading-relaxed mb-3">
-                Fairness is a fundamental requirement of scheduling. Each process should receive 
-                a reasonable share of CPU time, regardless of its priority or length. Without 
-                fairness, low-priority processes might never execute, a condition known as 
-                <span className="text-blue-300"> starvation</span>.
+                Fairness ensures every process receives a fair share of CPU time. Without it, 
+                low-priority processes could suffer from{" "}
+                <span className="text-cyan-300">starvation</span>.
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Many algorithms incorporate techniques such as <span className="text-blue-300">
-                aging</span>, where the priority of a waiting process increases over time, 
-                guaranteeing it will eventually be executed. This ensures long-term system stability, 
-                prevents lock-ups, and maintains trust in multi-user or multi-application systems.
+                Techniques like <span className="text-cyan-300">aging</span> gradually increase 
+                the priority of waiting processes, guaranteeing execution and stability.
               </p>
             </div>
 
             {/* Real-World Relevance */}
             <div className="bg-black/40 border border-gray-700 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-semibold text-white mb-4 flex items-center gap-3">
-                <Share2 className="w-8 h-8 text-blue-400" /> Real-World Applications
+              <h3 className="text-2xl font-semibold text-cyan-300 mb-4 flex items-center gap-3 font-mono">
+                <Share2 className="w-8 h-8 text-cyan-400" /> Real-World Applications
               </h3>
               <p className="text-gray-300 text-base leading-relaxed mb-3">
-                CPU scheduling is not just an academic concept—it is the foundation of real-world 
-                computing. Modern operating systems like Linux, Windows, and macOS implement 
-                sophisticated scheduling strategies to balance interactive responsiveness with 
-                system throughput.
+                CPU scheduling is the foundation of modern OS. From Linux to macOS, 
+                sophisticated strategies balance responsiveness with throughput.
               </p>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Beyond PCs, scheduling is crucial in embedded systems (such as automotive 
-                controllers), real-time systems (like medical devices), and cloud platforms 
-                (where thousands of processes share hardware). Understanding these principles 
-                equips you to reason about system design, performance trade-offs, and the way 
-                technology supports daily life.
+                Beyond PCs, scheduling is crucial in embedded systems, real-time devices, 
+                and cloud platforms where thousands of processes share hardware.
               </p>
             </div>
           </div>
         </div>
       </section>
-
 
       {/* Spacer before footer */}
       <div className="bg-[#0D1117] h-12"></div>

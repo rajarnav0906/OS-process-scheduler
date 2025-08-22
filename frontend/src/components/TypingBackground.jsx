@@ -68,25 +68,58 @@ const philosopherCode = [
   "};",
 ];
 
-// simple highlighting
 function highlightCode(line) {
-  const keywords = ["class","private","public","int","void","inline","while","for","if","else","return"];
+  const keywords = [
+    "class",
+    "private",
+    "public",
+    "int",
+    "void",
+    "inline",
+    "while",
+    "for",
+    "if",
+    "else",
+    "return",
+  ];
   const colors = {
     keyword: "text-purple-400",
-    type: "text-blue-400",
+    type: "text-cyan-400",
     function: "text-green-400",
     number: "text-amber-300",
   };
 
   if (!line) return null;
-  if (line.trim().startsWith("//")) return <span className="text-gray-500 italic">{line}</span>;
-  if (line.trim().startsWith("#")) return <span className="text-pink-400">{line}</span>;
+  if (line.trim().startsWith("//"))
+    return <span className="text-gray-500 italic">{line}</span>;
+  if (line.trim().startsWith("#"))
+    return <span className="text-pink-400">{line}</span>;
 
   return line.split(/(\s+|\(|\)|;|,)/g).map((word, i) => {
-    if (keywords.includes(word)) return <span key={i} className={colors.keyword}>{word}</span>;
-    if (/^[0-9]+$/.test(word)) return <span key={i} className={colors.number}>{word}</span>;
-    if (word.endsWith("(") || word.endsWith(")")) return <span key={i} className={colors.function}>{word}</span>;
-    if (["mutex","condition_variable","Semaphore"].includes(word)) return <span key={i} className={colors.type}>{word}</span>;
+    if (keywords.includes(word))
+      return (
+        <span key={i} className={colors.keyword}>
+          {word}
+        </span>
+      );
+    if (/^[0-9]+$/.test(word))
+      return (
+        <span key={i} className={colors.number}>
+          {word}
+        </span>
+      );
+    if (word.endsWith("(") || word.endsWith(")"))
+      return (
+        <span key={i} className={colors.function}>
+          {word}
+        </span>
+      );
+    if (["mutex", "condition_variable", "Semaphore"].includes(word))
+      return (
+        <span key={i} className={colors.type}>
+          {word}
+        </span>
+      );
     return <span key={i}>{word}</span>;
   });
 }
@@ -156,23 +189,17 @@ export default function TypingBackground() {
   }, [lineIndex, charIndex]);
 
   return (
-    <div className="bg-[#0D1117] border border-gray-700 rounded-lg shadow-lg w-full h-full flex flex-col overflow-hidden relative">
+    <div className="bg-[#0D1117] border border-gray-700 rounded-xl shadow-lg shadow-cyan-500/10 w-full h-full flex flex-col overflow-hidden relative">
       {/* Editor Header */}
-      <div className="relative flex items-center gap-2 p-2 border-b border-gray-700">
+      <div className="relative flex items-center gap-2 px-4 py-2 border-b border-gray-700 bg-black/40">
         <span className="w-3 h-3 rounded-full bg-red-500"></span>
         <span className="w-3 h-3 rounded-full bg-yellow-500"></span>
         <span className="w-3 h-3 rounded-full bg-green-500"></span>
         <span className="ml-3 text-gray-400 text-xs font-mono">main.cpp</span>
       </div>
 
-      {/* Fixed typing area with scroll inside */}
-      <div
-        ref={containerRef}
-        className="
-          flex-1 p-4
-          overflow-y-hidden
-        "
-      >
+      {/* Code typing area */}
+      <div ref={containerRef} className="flex-1 p-4 overflow-y-hidden">
         <pre className="text-sm font-mono leading-relaxed text-gray-200">
           {displayed.map((line, idx) => (
             <div key={idx} className="flex">
@@ -183,7 +210,7 @@ export default function TypingBackground() {
                 {highlightCode(line)}
                 {idx === displayed.length - 1 &&
                   charIndex < philosopherCode[lineIndex]?.length &&
-                  cursorVisible && <span className="text-white">|</span>}
+                  cursorVisible && <span className="text-cyan-400">|</span>}
               </span>
             </div>
           ))}
@@ -191,5 +218,4 @@ export default function TypingBackground() {
       </div>
     </div>
   );
-
 }

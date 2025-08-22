@@ -8,8 +8,8 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = [
-  "https://os-process-scheduler.onrender.com",
-  "http://localhost:5173"
+  process.env.FRONTEND_DEPLOYMENT_URL,
+  process.env.FRONTEND_URL
 ];
 
 app.use(cors({

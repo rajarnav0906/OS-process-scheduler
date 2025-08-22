@@ -3,46 +3,48 @@ import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-black/95 text-gray-300 border-t border-gray-700 relative z-10">
-      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="w-full bg-[#0D1117] text-gray-300 border-t border-gray-700 relative z-10 font-mono">
+      <div className="max-w-6xl mx-auto px-6 py-12 grid grid-cols-1 md:grid-cols-3 gap-12">
         
-        {/* Column 1: Branding */}
+        
         <div>
-          <h2 className="text-xl font-bold text-blue-400">OS Process Scheduler</h2>
-          <p className="mt-2 text-sm text-gray-400">
+          <h2 className="text-xl font-bold text-cyan-400">
+            OS Process Scheduler
+          </h2>
+          <p className="mt-3 text-sm text-gray-400 leading-relaxed">
             An interactive visualizer for Operating System scheduling algorithms.  
             Learn, simulate, and understand core concepts better.
           </p>
 
           {/* Social Icons */}
-          <div className="flex gap-4 mt-4 text-lg">
+          <div className="flex gap-5 mt-5 text-lg">
             <a
-              href="https://github.com/"
+              href="https://github.com/rajarnav0906"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-400"
+              className="hover:text-cyan-400 transition-colors"
             >
               <Github className="w-5 h-5" />
             </a>
             <a
-              href="https://linkedin.com/"
+              href="https://www.linkedin.com/in/arnav-raj-04211a216/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-400"
+              className="hover:text-cyan-400 transition-colors"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a
-              href="https://instagram.com/"
+              href="https://www.instagram.com/arnav_0906/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-blue-400"
+              className="hover:text-cyan-400 transition-colors"
             >
               <Instagram className="w-5 h-5" />
             </a>
             <a
-              href="mailto:yourmail@example.com"
-              className="hover:text-blue-400"
+              href="mailto:2022ugpi009@nitjsr.ac.in"
+              className="hover:text-cyan-400 transition-colors"
             >
               <Mail className="w-5 h-5" />
             </a>
@@ -51,28 +53,44 @@ export default function Footer() {
 
         {/* Column 2: Quick Links */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">Quick Links</h3>
+          <h3 className="text-lg font-semibold text-cyan-300 mb-4">
+            Quick Links
+          </h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link to="/" className="hover:text-blue-400" onClick={() => window.scrollTo(0, 0)}>Home</Link>
+              <Link
+                to="/"
+                className="hover:text-cyan-400 transition-colors"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/simulation" className="hover:text-blue-400" onClick={() => window.scrollTo(0, 0)}>Start Simulation</Link>
+              <Link
+                to="/simulation"
+                className="hover:text-cyan-400 transition-colors"
+                onClick={() => window.scrollTo(0, 0)}
+              >
+                Start Simulation
+              </Link>
             </li>
           </ul>
         </div>
 
         {/* Column 3: About */}
         <div>
-          <h3 className="text-lg font-semibold text-white mb-3">About Project</h3>
-          <p className="text-sm text-gray-400">
+          <h3 className="text-lg font-semibold text-cyan-300 mb-4">
+            About Project
+          </h3>
+          <p className="text-sm text-gray-400 leading-relaxed">
             Built with MERN stack and styled using Tailwind CSS.  
-            Created for learning and showcasing Operating System concepts interactively.
+            Designed for learning and showcasing Operating System concepts interactively.
           </p>
         </div>
       </div>
 
-      {/* Bottom Bar */}
+      
       <div className="text-center border-t border-gray-700 py-4 text-sm text-gray-500">
         © {new Date().getFullYear()} OS Process Scheduler. All rights reserved.
       </div>
